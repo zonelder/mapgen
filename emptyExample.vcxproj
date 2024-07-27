@@ -105,7 +105,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\map\BIOMS.cpp" />
+    <ClCompile Include="src\map\bioms.cpp" />
+    <ClCompile Include="src\map\Map.cpp" />
     <ClCompile Include="src\map\System.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
   </ItemGroup>

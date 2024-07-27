@@ -1,6 +1,8 @@
 #pragma once
 #include<memory>
 #include "System.h"
+
+
 template<class T>
 class Matrix
 {
@@ -59,11 +61,11 @@ public:
                 Array[i][j] *= div;
 
     }
-    void squareStep(int x, int y, int reach, unsigned int Width)
+    void squareStep(int x, int y, int reach, unsigned int _width)
     {
         int count = 0;
         float avg = 0.0f;
-        if (edgeCondition(x, y, reach, Width))
+        if (edgeCondition(x, y, reach, _width))
         {
             Array[x][y] = 0;
             return;
@@ -73,17 +75,17 @@ public:
             avg += Array[x - reach][y - reach];
             count++;
         }
-        if (x - reach >= 0 && y + reach < Width)
+        if (x - reach >= 0 && y + reach < _width)
         {
             avg += Array[x - reach][y + reach];
             count++;
         }
-        if (x + reach < Width && y - reach >= 0)
+        if (x + reach < _width && y - reach >= 0)
         {
             avg += Array[x + reach][y - reach];
             count++;
         }
-        if (x + reach < Width && y + reach < Width)
+        if (x + reach < _width && y + reach < _width)
         {
             avg += Array[x + reach][y + reach];
             count++;
@@ -94,11 +96,11 @@ public:
                 avg =  min_bound;
         Array[x][y] = int(avg);
     }
-    void diamondStep(int x, int y, int reach, unsigned int Width)
+    void diamondStep(int x, int y, int reach, unsigned int _width)
     {
         int count = 0;
         float avg = 0.0f;
-        if (edgeCondition(x, y, reach, Width))
+        if (edgeCondition(x, y, reach, _width))
         {
             Array[x][y] = 0;
             return;
@@ -110,7 +112,7 @@ public:
                 avg += Array[x - reach][y];
                 count++;
             }
-            if (x + reach < Width)
+            if (x + reach < _width)
             {
                 avg += Array[x + reach][y];
                 count++;
@@ -120,7 +122,7 @@ public:
                 avg += Array[x][y - reach];
                 count++;
             }
-            if (y + reach < Width)
+            if (y + reach < _width)
             {
                 avg += Array[x][y + reach];
                 count++;
@@ -132,30 +134,30 @@ public:
                 Array[x][y] = int(avg);
         }
     }
-    void diamondSquare(int size, unsigned int Width)
+    void diamondSquare(int size, unsigned int _width)
     {
         int half = size / 2;
         if (half < 1)
             return;
-        for (int y = half; y < Width; y += size)
-            for (int x = half; x < Width; x += size)
-                squareStep(x % Width, y % Width, half, Width);
+        for (int y = half; y < _width; y += size)
+            for (int x = half; x < _width; x += size)
+                squareStep(x % _width, y % _width, half, _width);
         int col = 0;
-        for (int x = 0; x < Width; x += half)
+        for (int x = 0; x < _width; x += half)
         {
             col++;
             //If this is an odd column.
-                for (int z = half*(col % 2); z < Width; z += size)
-                    diamondStep(x % Width, z % Width, half, Width);
+                for (int z = half*(col % 2); z < _width; z += size)
+                    diamondStep(x % _width, z % _width, half, _width);
         }
-        diamondSquare(size / 2, Width);
+        diamondSquare(size / 2, _width);
     }
-    void Generate()//flag can be "diamondSquare" or "linear"
+    void generate()//flag can be "diamondSquare" or "linear"
     {
         srand(time(0));
-        int Width = n;
-        int size = Width / 2;
-            diamondSquare(size, Width);
+        int _width = n;
+        int size = _width / 2;
+            diamondSquare(size, _width);
             
 
     }
@@ -169,13 +171,13 @@ public:
 
         return max;
     }
-    void WaterLvl_setting(unsigned int persent,int Width)
+    void WaterLvl_setting(unsigned int persent,int _width)
     {
         int waterLvl = 0;
         int fullArea = 0;
         int dirt = 0;
 
-        fullArea = Width * Width;
+        fullArea = _width * _width;
         int real_persent = 0;
         for (int step = 0; step < 100; step++) {
                 if (real_persent < persent)
@@ -183,8 +185,8 @@ public:
               if (real_persent > persent)
                 waterLvl += 1;
 
-            for (int i = 0; i < Width; i++)
-                for (int j = 0; j < Width; j++)
+            for (int i = 0; i < _width; i++)
+                for (int j = 0; j < _width; j++)
                 {
                     if (Array[i][ j] > waterLvl)
                         dirt++;
@@ -193,8 +195,8 @@ public:
             dirt = 0;
         }
 
-        for (int i = 0; i < Width; i++)
-            for (int j = 0; j < Width; j++)
+        for (int i = 0; i < _width; i++)
+            for (int j = 0; j < _width; j++)
             {
                 //if (Array[i][j] > waterLvl)
                     Array[i][j] -= waterLvl;

@@ -1,10 +1,10 @@
-#pragma once
 #include<cstdlib>
-bool edgeCondition(int coord_x, int coord_y, int reach, unsigned int Width)
+
+bool edgeCondition(int coord_x, int coord_y, int reach, unsigned int _width)
 {
-	if (coord_x - reach == 0 || coord_x + reach == Width)
+	if (coord_x - reach == 0 || coord_x + reach == _width)
 		return true;
-	if (coord_y - reach == 0 || coord_y + reach == Width)
+	if (coord_y - reach == 0 || coord_y + reach == _width)
 		return true;
 
 	return false;

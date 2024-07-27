@@ -7,12 +7,13 @@
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\map\BIOMS.cpp">
+    <ClCompile Include="src\map\bioms.cpp">
       <Filter>src\map</Filter>
     </ClCompile>
     <ClCompile Include="src\map\System.cpp">
       <Filter>src\map</Filter>
     </ClCompile>
+    <ClCompile Include="src\map\Map.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
