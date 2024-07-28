@@ -1,10 +1,10 @@
 #include "ofApp.h"
 #include "map/Map.h"
+
 //@brief setup map
 double t;
 int step = 0;
 syrenmap::Map globalMap(24);
-using namespace std;
 
 
 
@@ -49,7 +49,6 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-	//cout << "_temps= " << _temps(x, y) << "  " << "  _heights = " << Map(x, y)<<"   _wet = "<<_wet(x,y) << endl;
 }
 
 //--------------------------------------------------------------

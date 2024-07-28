@@ -13,7 +13,7 @@ namespace syrenmap
 		HeatMap,
 		WetMap,
 		BiomMap,
-		MAX,//always in end
+		MAX,//always set in end of enum
 	};
 	class Map {
 	public:

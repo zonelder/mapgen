@@ -40,7 +40,7 @@ namespace syrenmap
 		_temps.Scaling(50);
 		_wet.setRoudness(10);
 		_wet.generate();
-		for (int i = 0; i < _width; i++)
+		for (int i = 0; i < _width; i++)//make linear temperature distribution
 			for (int j = 0; j < _width; j++)
 			{
 				if (j < _width / 2)
@@ -52,32 +52,31 @@ namespace syrenmap
 		_heights.Scaling(255);
 		_heights.WaterLvl_setting(24, _width);
 		for (int i = 0; i < _width; i++)
-			for (int j = 0; j < _width; j++)
+			for (int j = 0; j < _width; j++)//decrease temperature with height
 			{
 				if (_heights(i, j) > 0)
-					_temps(i, j) = -float(_heights(i, j)) / 200.0f + _temps(i, j);//2- за сколько понижаетс€ тмпература с единицей высоты, можно настраивать и генерировать более м€гкие или жесткие услови€
+					_temps(i, j) = -float(_heights(i, j)) / 200.0f + _temps(i, j);
 			}
+		const int DeepWater = -float(_waterLvl / 4) * 3;
+		const double wetDropToHighest = 4.0;
+		const double factor = 1 / log(wetDropToHighest);//how wet is dropped over height
 		for (int i = 0; i < _width; i++)
-			for (int j = 0; j < _width; j++)
+			for (int j = 0; j < _width; j++)//decrease wet with height
 			{
-				int DeepWater = -float(_waterLvl / 4) * 3;
+
 				if (_heights(i, j) <= DeepWater)
-					_wet(i, j) = 5;
-				if (_heights(i, j) < 0 && _heights(i, j) > DeepWater)
-					_wet(i, j) = (_wet(i, j) > 2) ? (5) : (_wet(i, j) + 3);
-				if (_heights(i, j) <= 100 && _heights(i, j) >= 0)
 				{
-					_wet(i, j) = ((3 - round(1.1f * 8 * _heights(i, j) / 255)) + _wet(i, j));
-					if (_wet(i, j) > 5)
-						_wet(i, j) = 5;
+					_wet(i, j) = 5;
+					continue;
 				}
 
-				if (_heights(i, j) > 100 && _heights(i, j) <= 230)
+				if (_heights(i, j) < 0)
 				{
-					_wet(i, j) = (round(8 * _heights(i, j) / 255) * 0.25f + _wet(i, j));
-					if (_wet(i, j) > 5)
-						_wet(i, j) = 5;
+					_wet(i, j) = std::min<int>(_wet(i, j) + 3, bioms::s_wetMax - 1);
+					continue;
 				}
+				_wet(i, j) = _wet(i, j) * exp(-double(_heights(i, j) / 255)/factor);
+				_wet(i, j) = std::min<int>(_wet(i, j), bioms::s_wetMax - 1);
 
 			}
 		for (int i = 0; i < _width; i++)
