@@ -2,9 +2,9 @@
 Simple generator for static squared maps. Generation include heigth, temperature and wet tileData.and form bioms based of that information.
 Support drawing image of each element of tileData.
 Main generation algorithm - [diamond-square](https://en.wikipedia.org/wiki/Diamond-square_algorithm ).       
-<img src="src/map/generationExample.png" width="320" height="320">
-<img src="src/map/generationExample1.png" width="320" height="320">
-<img src="src/map/generationExample2.png" width="320" height="320">
+<img src="src/map/generationExample.png" width="300" height="300">
+<img src="src/map/generationExample1.png" width="300" height="300">
+<img src="src/map/generationExample2.png" width="300" height="300">
 
 # Example
  add this lines to your ofApp.cpp file to run standart generation 
@@ -26,8 +26,8 @@ void ofApp::setup() {
 You can customize Bioms by setting colors in bioms.cpp file
 ```cpp
   BiomsColorMap::BiomsColorMap(){// customize your bioms presets
-			set(Biom::Tundra,							ofColor(77, 98, 69));
-			set(Biom::Ice,								ofColor(239, 255, 250));
+			set(Biom::Tundra,	ofColor(77, 98, 69));
+			set(Biom::Ice,		ofColor(239, 255, 250));
   }
 ```
 # Download
