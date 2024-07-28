@@ -1,30 +1,42 @@
-# About emptyExample
+# Map generator
+Simple generator for static squared maps. Generation include heigth, temperature and wet tileData.and form bioms based of that information.
+Support drawing image of each element of tileData.
+Main generation algorithm - [diamond-square](https://en.wikipedia.org/wiki/Diamond-square_algorithm ).       
+<img src="src/map/generationExample.png" width="320" height="320">
+<img src="src/map/generationExample1.png" width="320" height="320">
+<img src="src/map/generationExample2.png" width="320" height="320">
 
-![Screenshot of emptyExample](emptyExample.png)
+# Example
+ add this lines to your ofApp.cpp file to run standart generation 
+```cpp
+ #include "map/Map.h"
+ syrenmap::Map globalMap(24);
 
-### Learning Objectives
+void ofApp::setup() {
+	globalMap.generate();
+	globalMap.updateColoring();
 
-This example is the simplest possible openFrameworks app! It does nothing. 
+}
+ void ofApp::draw(){
+	  ofBackground(255, 255, 255);
+	  globalMap.draw();
+}
+```
 
-...Well, *almost* nothing. Although it may not be apparent, the emptyExample activates all of the default system states. (For example, it sets the default fill color to white; it just doesn't happen to draw anything with it.)
+You can customize Bioms by setting colors in bioms.cpp file
+```cpp
+  BiomsColorMap::BiomsColorMap(){// customize your bioms presets
+			set(Biom::Tundra,							ofColor(77, 98, 69));
+			set(Biom::Ice,								ofColor(239, 255, 250));
+  }
+```
+# Download
+- You have to download [openFramework](https://openframeworks.cc/download/).
+- Copy [map](src) folder and place it to your exampleProject or any other project that has been generated with OpenFramework ProjectGenerator.exe.
+- Also You can clone this rep. as always but it definetly force some issue with openFramework solution Presets. I dunno know how to fix it. just better avoid it.
 
-The emptyExample is great for making sure that your openFrameworks development environment is compiling properly. It can also be useful as a "starter template" for making simple programs. 
+# TODO
 
-The emptyExample will help you understand what are the bare necessities of an openFrameworks program. In this regard, you can think of it as a "Hello World" for OF. 
-
-
-### Expected Behavior
-
-When launching this app, you should see a light-gray screen. 
-
-* There's no interaction. 
-* There's nothing to see. 
-* That's it. 
-
-Instructions for using the app:
-
-* There's nothing to do. Move along.
-
-### Other classes used in this file
-
-This example uses no other classes.
+ - In case you want to change biom-calculation-algorithm you can modify <code>Biom defBiom(...) </code> function(this method is pretty ugly btw. i will search for more generic solution)
+ - OpenFramework::ofColor dont support constexpr semantic but ColorsMaps already defined of comlite time. should search to compile-time definition
+ - Generalize Generation algorithm to give user oportunity to change some generation value before generate map
